@@ -1,0 +1,35 @@
+//closest to inheritance I get, every Position mutator will have two methods:
+//next Postition X and next Position Y
+function DirectionalGradualPosition() {
+        this.directionX = randomSign();
+        this.directionY = randomSign();
+        //ignores parent position, just outputs a random
+	this.nextPositionX = function(x,maxx){
+	    var ret = Math.min(maxx-10, x + Math.random() * maxx/10 * this.directionX);
+	    ret = Math.max(10, ret);
+	    //if near max or min, switch directions
+	    if(Math.abs(ret-maxx) < 11  || ret < 11){
+	        this.directionX = -this.directionX;
+	    }
+	    console.log("X: " + ret);
+	    return ret;
+	}
+	
+	//ignores parent postition, just outputs a random.
+	this.nextPositionY = function(y,maxy){
+	    var ret = Math.min(maxy-10, y + Math.random() * maxy/10 * this.directionY);
+	    ret = Math.max(10, ret);
+	    if(Math.abs(ret-maxy) < 11 || ret < 11 ){
+	        this.directionY = -this.directionY;	        
+	    }
+	    console.log("Y: " + ret);
+	    return ret;
+	}
+	
+	function randomSign(){
+	  var arr = [1,-1];
+	  var ret = arr[Math.floor(Math.random() * 2)];
+	  return ret;
+	}	
+}
+

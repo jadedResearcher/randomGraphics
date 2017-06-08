@@ -1,0 +1,85 @@
+
+function Starburst(x,y,maxx,maxy, fill, stroke, scale, rotation, parent) {
+   	//initial variables
+	this.x = x;
+	this.parent = parent;
+	this.y = y;
+	this.endx = x;
+	if(parent != null){
+	    this.distance_from_origin = parent.distance_from_origin + 1;
+	}else{
+	    this.distance_from_origin = 0;
+	}
+	this.endy = y;
+	this.seed = true;
+	this.is_stasis = false;
+	this.max_x = maxx;
+	this.max_y = maxy;
+	this.scale = scale; 
+	this.rotation = rotation;
+	this.path =  "M" + this.x + " " +  this.y + " l 8.214285,14.464285 -16.964285,2.857143 16.785715,7.142857 -15.714286,11.785715 21.785714,-3.392857 2.321429,11.607142 11.249999,-10.535714 10.178572,9.642857 4.107143,-10.892857 10.357143,10.714286 0.357143,-13.928572 16.071428,3.571429 -14.285714,-13.392857 16.964285,-2.857143 -17.142857,-3.750000 6.607143,-14.285715 -15.714285,8.571429 -4.821429,-10.892857 -9.464286,9.464286 -8.928571,-9.821429 -3.571429,13.035714z";
+	this.fill = fill;
+	this.stroke = stroke;
+	this.sprite = null;
+	this.red1 = 0;
+	this.red2 = 0;
+	this.green1 = 0;
+	this.green2 = 0;
+	this.blue1 = 0;
+	this.blue2 = 0;
+
+	this.setSprite = function(sprite){
+	    this.sprite = sprite;
+	    this.sprite.attr({fill: this.fill, stroke: this.stroke});
+	    //transforming seems expensive....
+	    this.sprite.transform("r"+this.rotation+"s"+this.scale);
+	    if(this.distance_from_origin < 10){
+	        this.spawn(); //eventually want it to be animated/delayed (but setTimeout(this.spawn, 1000) makes spawn think "this" is the window, not the object)
+	    }
+	}
+	
+	this.spawn = function(){
+	    var nxtX = this.positionMutator.nextPositionX(this.x, this.max_x);
+	    var nxtY = this.positionMutator.nextPositionY(this.y, this.max_y);
+	    var nxtScale = this.scaleMutator.nextSize(this.scale, this.max_x, this.max_y);  
+	    var nxtFill = this.colorMutator.nextFill(this.red1, this.green1, this.blue1, this.red2, this.green2, this.blue2); 
+	    var nxtRotate = this.rotationMutator.nextAngle(this.rotation);   
+	    
+	    var tmp_object = new TemplateObject(nxtX, nxtY, this.max_x  , this.max_y, nxtFill, this.stroke, nxtScale, nxtRotate, this);
+	    tmp_object.setColors(this.colorMutator.r1, this.colorMutator.g1, this.colorMutator.b1, this.colorMutator.r2, this.colorMutator.g2, this.colorMutator.b2 );
+	    tmp_object.setPositionMutator(this.positionMutator);
+	    tmp_object.setColorMutator(this.colorMutator);
+	    tmp_object.setScaleMutator(this.scaleMutator);
+	    tmp_object.setRotationMutator(this.rotationMutator);
+	    
+            var tmp_sprite = paper.path(tmp_object.path);
+            tmp_object.setSprite(tmp_sprite);
+	}
+	
+	this.setPositionMutator = function(mutator){
+	   this.positionMutator = mutator;
+	}
+	
+	this.setColorMutator = function(mutator){
+	   this.colorMutator = mutator;
+	}
+	
+	this.setRotationMutator = function(mutator){
+	   this.rotationMutator = mutator;
+	}
+	
+	this.setScaleMutator = function(mutator){
+	   this.scaleMutator = mutator;
+	}
+	
+	this.setColors = function(r1,g1,b1, r2, g2, b2){
+	    this.red1 = r1;
+	    this.red2 = r2;
+	    this.green1 = g1;
+	    this.green2 = g2;
+	    this.blue1 = b1;
+	    this.blue2 = b2;
+	    this.fill = "45-rgb(" +r1 + "," + g1 + "," + b1 +  ")-rgb(" + +r2 + "," + g2 + "," + b2 +")"
+	}
+}
+

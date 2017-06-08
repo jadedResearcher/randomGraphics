@@ -1,0 +1,20 @@
+//closest to inheritance I get, every Color mutator has a nextColor method
+function RandomColor() {	   this.r1 = 0;
+	   this.g1 = 0;
+	   this.b1 = 0;
+	   this.r2 = 0;
+	   this.g2 = 0;
+	   this.b2 = 0;
+        //ignores parent position, just outputs a random color
+	this.nextFill = function(red1,green1,blue1, red2, green2, blue2){
+	   this.r1 = Math.floor(Math.random() * 255);
+	   this.g1 = Math.floor(Math.random() * 255);
+	   this.b1 = Math.floor(Math.random() * 255);
+	   this.r2 = Math.floor(Math.random() * 255);
+	   this.g2 = Math.floor(Math.random() * 255);
+	   this.b2 = Math.floor(Math.random() * 255);
+	   ret = "45-rgb(" +r1 + "," + g1 + "," + b1 +  ")-rgb(" + +r2 + "," + g2 + "," + b2 +")";
+	   return ret;
+	}
+}
+

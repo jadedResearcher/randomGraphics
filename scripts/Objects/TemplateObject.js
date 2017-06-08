@@ -1,0 +1,145 @@
+
+function TemplateObject(path, x,y,maxx,maxy, fill, stroke, scale, rotation, number, parent) {
+   	//initial variables
+	this.x = x;
+	this.parent = parent;
+	this.y = y;
+	this.endx = x;
+	if(parent != null){
+	    this.distance_from_origin = parent.distance_from_origin + 1;
+	}else{
+	    this.distance_from_origin = 1;
+	}
+	this.endy = y;
+	this.max_x = maxx;
+	this.max_y = maxy;
+	this.scale = scale; 
+	this.rotation = rotation;
+	this.path_fragment = path;
+	this.path =  "M " + x + "," +  y + this.path_fragment;
+	this.fill = fill;
+	this.stroke = stroke;
+	this.sprite = null;
+	this.number = number;
+	this.red1 = 0;
+	this.red2 = 0;
+	this.green1 = 0;
+	this.green2 = 0;
+	this.blue1 = 0;
+	this.blue2 = 0;
+	this.animate_shape = false;
+	this.animate_scale = false;
+	this.animate_rotation = false;
+	this.animate_color = false; 
+	this.animate_position = false;
+	this.animation_speed = 3000;
+	this.animation_path = "";
+	
+	//everything but shape uses existing mutators, shape uses given path.
+	this.setAnimationParams = function(shape, position, scale, rotation, color, path, speed){
+	    this.animate_shape = shape;
+	    this.animate_position = position;
+	    this.animate_scale = scale;
+	    this.animate_rotation = rotation;
+	    this.animate_color = color;
+	    this.animation_path = path; 
+	    this.animation_speed = speed;
+	}
+	
+	this.animate = function(){
+	   var animation_hash = {};
+	   if(this.animate_shape == true){
+	       animation_hash["path"] = "M " + x + "," +  y +this.animation_path;
+	   } 
+	   
+	   if(this.animate_position == true){
+	       var tx = this.positionMutator.nextPositionX(this.x, this.max_x);
+	       var ty =  this.positionMutator.nextPositionY(this.y, this.max_y);
+	       animation_hash["path"] = "M " + tx + "," +  ty +this.path_fragment;
+	   } 
+	   
+	   if(this.animate_scale == true){
+	      if(animation_hash["transform"] == null){
+                  animation_hash["transform"] = "s" + this.scaleMutator.nextSize(this.scale, this.max_x, this.max_y); 
+              }else{
+                  animation_hash["transform"] += "s" + this.scaleMutator.nextSize(this.scale, this.max_x, this.max_y); 
+              }    
+	   }
+	   
+	   if(this.animate_rotation == true){
+	      if(animation_hash["transform"] == null){
+	          animation_hash["transform"] = "r" + this.rotationMutator.nextAngle(this.rotation);
+	      }else{
+	          animation_hash["transform"] += "r" + this.rotationMutator.nextAngle(this.rotation);
+	      }    
+	   }
+	   
+	   if(this.animate_color == true){
+	      //normally would do fill, but apparently is broken
+	      //and can only be fixed with custom attributes
+	      //and no attempts to fix.
+	      //this STILL doesn't work, just makes it clear until last frame...
+	       animation_hash["gradient"] = this.colorMutator.nextFill(this.red1, this.green1, this.blue1, this.red2, this.green2, this.blue2); 
+	   }
+	   if(this.animate_shape || this.animate_position || this.animate_scale || this.animate_rotation || this.animate_color){
+	       var animation = Raphael.animation(animation_hash, this.animation_speed, "linear");
+	       this.sprite.animate(animation.repeat(1));
+	   }
+	}
+
+	this.setSprite = function(sprite){
+	    this.sprite = sprite;
+	    this.sprite.attr({fill: this.fill, stroke: this.stroke});
+	    //transforming seems expensive....
+	    this.sprite.transform("r"+this.rotation+"s"+this.scale);
+	    if(this.distance_from_origin < this.number){
+	        this.spawn(); //eventually want it to be animated/delayed (but setTimeout(this.spawn, 1000) makes spawn think "this" is the window, not the object)
+	    }
+	    this.animate();
+	}
+	
+	this.spawn = function(){
+	    var nxtX = this.positionMutator.nextPositionX(this.x, this.max_x);
+	    var nxtY = this.positionMutator.nextPositionY(this.y, this.max_y);
+	    var nxtScale = this.scaleMutator.nextSize(this.scale, this.max_x, this.max_y);  
+	    var nxtFill = this.colorMutator.nextFill(this.red1, this.green1, this.blue1, this.red2, this.green2, this.blue2); 
+	    var nxtRotate = this.rotationMutator.nextAngle(this.rotation);   
+	    
+	    var tmp_object = new TemplateObject(this.path_fragment, nxtX, nxtY, this.max_x  , this.max_y, nxtFill, this.stroke, nxtScale, nxtRotate, this.number, this);
+	    tmp_object.setColors(this.colorMutator.r1, this.colorMutator.g1, this.colorMutator.b1, this.colorMutator.r2, this.colorMutator.g2, this.colorMutator.b2 );
+	    tmp_object.setPositionMutator(this.positionMutator);
+	    tmp_object.setColorMutator(this.colorMutator);
+	    tmp_object.setScaleMutator(this.scaleMutator);
+	    tmp_object.setRotationMutator(this.rotationMutator);
+	    tmp_object.setAnimationParams(this.animate_shape, this.animate_position, this.animate_scale, this.animate_rotation, this.animate_color, this.animation_path, this.animation_speed);
+            var tmp_sprite = paper.path(tmp_object.path);
+            tmp_object.setSprite(tmp_sprite);
+	}
+	
+	this.setPositionMutator = function(mutator){
+	   this.positionMutator = mutator;
+	}
+	
+	this.setColorMutator = function(mutator){
+	   this.colorMutator = mutator;
+	}
+	
+	this.setRotationMutator = function(mutator){
+	   this.rotationMutator = mutator;
+	}
+	
+	this.setScaleMutator = function(mutator){
+	   this.scaleMutator = mutator;
+	}
+	
+	this.setColors = function(r1,g1,b1, r2, g2, b2){
+	    this.red1 = r1;
+	    this.red2 = r2;
+	    this.green1 = g1;
+	    this.green2 = g2;
+	    this.blue1 = b1;
+	    this.blue2 = b2;
+	    this.fill = "45-rgb(" +r1 + "," + g1 + "," + b1 +  ")-rgb(" + +r2 + "," + g2 + "," + b2 +")";
+	}
+}
+

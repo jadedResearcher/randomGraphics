@@ -1,0 +1,5 @@
+Mutation Engines handle how different parameters change over time:  color, size, rotation and location are obvious choices.  
+
+This allows me to pair objects with engines to get different effects, without having to write whole new objects (Rainbow spiral vs Random Spiral) for example.
+
+

@@ -1,0 +1,141 @@
+<html>
+	<head>
+		<title>Graphics Chooser</title>
+		<script type = "text/javascript" src="scripts/Objects/TemplateObject.js"></script>
+		
+		<script type = "text/javascript" src="scripts/Shapes/Butterfly.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Spiral.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Smoosh.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Starburst.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Seed.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/CursiveJ.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Sun.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Flower.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Star.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Splat.js"></script>
+		
+		<script type = "text/javascript" src="scripts/MutationEngines/Random.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/RandomReds.js"></script>		
+		<script type = "text/javascript" src="scripts/MutationEngines/RandomGreens.js"></script>		
+		<script type = "text/javascript" src="scripts/MutationEngines/RandomBlues.js"></script>		
+		<script type = "text/javascript" src="scripts/MutationEngines/PassThru.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/RandomGradual.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/DirectionalGradual.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/DirectionalGradualDarks.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/DirectionalGradualPastels.js"></script>				
+		<script type = "text/javascript" src="scripts/MutationEngines/DirectionalGradualHorizontalLines.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/DirectionalGradualVerticalLines.js"></script>
+		
+		<script type = "text/javascript" src="scripts/jquery-1.4.2.min.js"></script>
+		<script type = "text/javascript" src="scripts/jquery.timers-1.2.js"></script>
+		<script type = "text/javascript" src="scripts/raphael-min.js"></script>
+		
+		<script type = "text/javascript" src = "scripts/RunnerScripts/chooser_runner.js"></script>
+	</head>
+
+	<body>
+		<div id = "control">
+		    <input type = "Button" id = "Generate" value = "Generate">  </input>
+		    <input type = "Button" id = "Clear" value = "Clear">  </input>
+		    <br>
+		    Shape 1
+		    <select id = "shape">
+		        <option value = "Butterfly"> Butterfly </option>
+		        <option value = "Spiral"> Spiral </option>
+		        <option value = "Smoosh"> Smoosh </option>
+		        <option value = "Starburst"> Starburst </option>
+		        <option value = "Seed"> Seed </option>
+		        <option value = "Sun"> Sketchy Boxes</option>
+		        <option value = "Flower"> Sketchy Stars </option>
+		        <option value = "Star"> Star </option>
+		        <option value = "Splat"> Embeded Stars </option>
+		        <option value = "CursiveJ"> Cursive J (slow) </option>
+		    </select>
+		    
+		    Animation Shape 
+		    <select id = "animation_shape">
+		        <option value = "Butterfly"> Butterfly </option>
+		        <option value = "Spiral"> Spiral </option>
+		        <option value = "Smoosh"> Smoosh </option>
+		        <option value = "Starburst"> Starburst </option>
+		        <option value = "Seed"> Seed </option>
+		        <option value = "Sun"> Sketchy Boxes</option>
+		        <option value = "Flower"> Sketchy Stars </option>
+		        <option value = "Star"> Star </option>
+		        <option value = "Splat"> Embeded Stars </option>
+		        <option value = "CursiveJ"> Cursive J (slow) </option>
+		    </select>
+		    
+		    Number:
+		    <select id = "number">
+		        <option value = 1> 1 </option>
+		        <option value = 10> 10 </option>
+		        <option value = 25> 25 </option>
+		        <option value = 50> 50 </option>
+		        <option value = 100> 100 </option>
+		    </select>
+		    <br>
+		    Starting X: <input type = "text" id = "x" value = "200"></input>
+		    Starting Y: <input type = "text" id = "y" value = "200"></input>
+		    <br>
+		    
+		    Animation Speed: <input type = "text" id = "speed" value = "2000"></input>
+		   &nbsp &nbsp Shape Animation: 
+		    <input type = "checkbox" id = "shape_animation"></input>  
+		   &nbsp &nbsp Position Animation: 
+		    <input type = "checkbox" id = "position_animation"></input> 		    
+		     &nbsp &nbsp Scale Animation:
+		    <input type = "checkbox" id = "scale_animation"></input>  
+		     &nbsp &nbsp Rotation Animation:
+		    <input type = "checkbox" id = "rotation_animation"></input>  
+		    &nbsp &nbsp Color Animation: 
+		    <input type = "checkbox" id = "color_animation"></input>  
+		    <br>
+		    Color Mutator:
+		    <select id = "color_mutator">
+		        <option value = "Random"> Random </option>
+		        <option value = "RandomReds"> Random Reds</option>
+		        <option value = "RandomGreens"> Random Greens</option>
+		        <option value = "RandomBlues"> Random Blues </option>
+		        <option value = "PassThru"> Pass Thru </option>
+		        <option value = "RandomGradual"> Random Gradual </option>
+		        <option value = "DirectionalGradual"> Directional Gradual </option>
+		        <option value = "DirectionalGradualPastels"> Directional Gradual Pastels </option>
+		        <option value = "DirectionalGradualDarks"> Directional Gradual Darks </option>	    
+		    </select>
+		    
+		    Position Mutator:
+		    <select id = "position_mutator">
+		        <option value = "Random"> Random </option>
+		        <option value = "PassThru"> Pass Thru </option>		        
+		        <option value = "RandomGradual"> Random Gradual </option>
+		        <option value = "DirectionalGradual"> Directional Gradual </option>
+		        <option value = "DirectionalGradualHorizontalLines"> Horizontal Lines </option>	
+		        <option value = "DirectionalGradualVerticalLines"> Vertical Lines </option>
+		    </select>
+		    <br>
+		    Scale Mutator: 
+		    <select id = "scale_mutator">
+		        <option value = "Random"> Random  </option>
+		        <option value = "PassThru"> Pass Thru </option>		        
+		        <option value = "RandomGradual"> Random Gradual  </option>
+		        <option value = "DirectionalGradual"> Directional Gradual  </option>		    
+		    </select>
+		    
+		    Rotation Mutator:
+		    <select id = "rotation_mutator">
+		        <option value = "Random"> Random  </option>
+		        <option value = "PassThru"> Pass Thru </option>		        
+		        <option value = "RandomGradual"> Random Gradual  </option>
+		        <option value = "DirectionalGradual"> Directional Gradual  </option>	
+		    </select>
+		    
+		    
+		
+		</div>
+		
+		<div id = "sim">
+
+		</div>
+	</body>
+</html>

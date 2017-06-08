@@ -1,0 +1,23 @@
+//closest to inheritance I get, every Position mutator will have two methods:
+//next Postition X and next Position Y
+function DirectionalRandomScale() {        this.direction = randomSign();
+        //ignores parent position, just outputs a random
+	this.nextSize = function(scale){
+	    ret =  Math.random()  * this.direction + scale ;
+	    ret = Math.max(0.5, ret);
+	    ret = Math.min(3, ret);
+	    console.log(ret);
+	    if(ret == 0.5 || ret == 3){
+	       this.direction = - this.direction;
+	    }
+	    return ret;
+	}
+	
+	function randomSign(){
+	  var arr = [1,-1, 1, -1, 1, 1 ,1];
+	  var ret = arr[Math.floor(Math.random() * 6)];
+	  return ret;
+	}
+
+}
+

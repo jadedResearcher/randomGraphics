@@ -1,0 +1,47 @@
+
+			window.onload = function(){
+				paper = new Raphael(document.getElementById('sim'),1000,1000);
+				
+				var ground = paper.rect(0,0,1000,1000);
+				ground.attr("fill", "#996600");
+			
+				var sky = paper.rect(0,0,1000,800);
+				sky.attr("fill", "45-#fff-#659ec7");
+			
+				object_list = new Array();
+
+				makeFirst();
+	    	                startTimer();
+	    	   // startFloatTimer();
+	    	    
+		    } //end on load
+		    
+		    //make several seeds, which will sprout one at a time
+		    function makeFirst(){
+   
+
+		    };
+		    
+
+			function startTimer(){
+				$(document).everyTime(speed,function(i) {tick();}, 0);
+			};
+
+			
+			
+
+			
+			//tick all seeds, roots, etc.
+			function tick(){
+
+				
+		        }//end tick
+		
+
+			function randomSign(){
+			  var arr = [1,-1];
+			  var ret = arr[Math.floor(Math.random() * 2)];
+			  return ret;
+			}
+			
+

@@ -1,0 +1,14 @@
+just want to use this space for fooling around, not necessarily doing simulations or anything. 
+
+maybe have an object which uses rules to spawn other, similar objects (like fractals in some fashion).  
+
+You give it a starting color and position, and it just creates a picture for you.
+
+could have a different object for each different path I want to draw...   each generation has a slightly different color and position and rotation.
+
+each generation tries not to draw over anything (but don't want to just keep track of everything?  or do I?)
+
+some objects can be linked:  Object A draws B, B draws C, C draws A, etc.
+
+
+experiment with weird art stuff.

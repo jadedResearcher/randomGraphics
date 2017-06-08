@@ -1,0 +1,10 @@
+//closest to inheritance I get, every Position mutator will have two methods:
+//next Postition X and next Position Y
+function RandomScale() {
+        //ignores parent position, just outputs a random
+	this.nextSize = function(scale){
+	    return Math.random() * 3;
+	}
+
+}
+

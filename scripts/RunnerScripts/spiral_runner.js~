@@ -1,0 +1,29 @@
+var height = 500;
+var width = 500;
+var speed = 5000;
+window.onload = function(){
+    paper = new Raphael(document.getElementById('sim'),height,width);			
+    makeFirst();}
+
+
+		    
+//make origin object
+function makeFirst(){
+    var tmp_object = new Spiral(height/2, width/2,height,width, "", '#000', null);
+    tmp_object.setColors(255,10,10,255,255,255);
+    tmp_object.setPositionMutator(new RandomPosition());
+    tmp_object.setColorMutator(new RandomColor());
+    tmp_object.setScaleMutator(new RandomScale());
+    tmp_object.setRotationMutator(new RandomAngle());
+    
+    var tmp_sprite = paper.path(tmp_object.path);
+    tmp_object.setSprite(tmp_sprite);
+};
+		    
+
+
+		
+
+
+			
+

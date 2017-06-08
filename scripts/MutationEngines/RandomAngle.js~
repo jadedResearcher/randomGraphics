@@ -1,0 +1,10 @@
+//closest to inheritance I get, every Position mutator will have two methods:
+//next Postition X and next Position Y
+function RandomAngle() {
+        //ignores parent, just outputs a random
+	this.nextAngle(angle){
+	    return Math.random() * 360;
+	}
+
+}
+

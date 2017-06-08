@@ -1,0 +1,87 @@
+//the start of every plant
+//dies, eventually.
+//sprouts a single stick, upwards from it
+//and a few roots, below it
+function Spiral(x,y,maxx,maxy, fill, stroke, scale, rotation, parent) {
+   	//initial variables
+	this.x = x;
+	this.parent = parent;
+	this.y = y;
+	this.endx = x;
+	if(parent != null){
+	    this.distance_from_origin = parent.distance_from_origin + 1;
+	}else{
+	    this.distance_from_origin = 0;
+	}
+	this.endy = y;
+	this.seed = true;
+	this.is_stasis = false;
+	this.max_x = maxx;
+	this.max_y = maxy;
+	this.scale = scale; 
+	this.rotation = rotation;
+	this.path = "M" + this.x + " " +  this.y + " l 1.4540130000000033,0.551522999999996 -1.4800970000000007,1.6805599999999998 -0.890584000000004,0.1845830000000035 -2.413429999999998,0.5002069999999961 -1.6174510000000026,-2.651765999999995 0.11421700000000357,-2.0984440000000006 0.2043079999999975,-3.753624000000002 3.9283259999999984,-2.1967089999999985 3.4507030000000043,0.5336719999999993 5.064045999999998,0.7831849999999996 2.845519000000003,5.351215000000003 -0.992906000000005,4.782270999999994 -1.3233869999999968,6.374015 -6.819315000000003,3.5107029999999995 -6.107303999999999,-1.4680609999999987 -7.685418999999996,-1.847406999999997 -4.182481000000003,-8.306514 1.9512459999999976,-7.42942 2.3632200000000054,-8.998023 9.803522000000001,-4.857668 8.749932999999999,2.4390399999999985 10.311492999999999,2.8743240000000014 5.534878000000006,11.306232000000001 -2.9297220000000124,10.069452999999996 -3.382480000000001,11.625582000000001 -12.812554999999996,6.213396000000003 -11.388309,-3.422331 -12.940119999999997,-3.8886700000000047 -6.892814000000001,-14.321310999999994 3.91629,-12.706698000000003 4.393485000000002,-14.254994 15.831782999999998,-7.572876900000001 14.024745000000003,4.4112296 15.570123999999993,4.897301299999999 8.253420000000006,17.343514 -4.906904999999995,15.342531999999999";
+this.fill = fill;
+	this.stroke = stroke;
+	this.sprite = null;
+	this.red1 = 0;
+	this.red2 = 0;
+	this.green1 = 0;
+	this.green2 = 0;
+	this.blue1 = 0;
+	this.blue2 = 0;
+
+	this.setSprite = function(sprite){
+	    this.sprite = sprite;
+	    this.sprite.attr({fill: this.fill, stroke: this.stroke});
+	    this.sprite.transform("r"+this.rotation+"s"+this.scale);
+	    if(this.distance_from_origin < 50){
+	        this.spawn(); //eventually want it to be animated/delayed (but setTimeout(this.spawn, 1000) makes spawn think "this" is the window, not the object)
+	    }
+	}
+	
+	this.spawn = function(){
+	    var nxtX = this.positionMutator.nextPositionX(this.x, this.max_x);
+	    var nxtY = this.positionMutator.nextPositionY(this.y, this.max_y);
+	    var nxtScale = this.scaleMutator.nextSize(this.scale, this.max_x, this.max_y);  
+	    var nxtFill = this.colorMutator.nextFill(this.red1, this.green1, this.blue1, this.red2, this.green2, this.blue2); 
+	    var nxtRotate = this.rotationMutator.nextAngle(this.rotation);   
+	    
+	    var tmp_object = new Spiral(nxtX, nxtY, this.max_x  , this.max_y, nxtFill, this.stroke, nxtScale, nxtRotate, this);
+	    tmp_object.setColors(this.colorMutator.r1, this.colorMutator.g1, this.colorMutator.b1, this.colorMutator.r2, this.colorMutator.g2, this.colorMutator.b2 );
+	    tmp_object.setPositionMutator(this.positionMutator);
+	    tmp_object.setColorMutator(this.colorMutator);
+	    tmp_object.setScaleMutator(this.scaleMutator);
+	    tmp_object.setRotationMutator(this.rotationMutator);
+	    
+            var tmp_sprite = paper.path(tmp_object.path);
+            tmp_object.setSprite(tmp_sprite);
+	}
+	
+	this.setPositionMutator = function(mutator){
+	   this.positionMutator = mutator;
+	}
+	
+	this.setColorMutator = function(mutator){
+	   this.colorMutator = mutator;
+	}
+	
+	this.setRotationMutator = function(mutator){
+	   this.rotationMutator = mutator;
+	}
+	
+	this.setScaleMutator = function(mutator){
+	   this.scaleMutator = mutator;
+	}
+	
+	this.setColors = function(r1,g1,b1, r2, g2, b2){
+	    this.red1 = r1;
+	    this.red2 = r2;
+	    this.green1 = g1;
+	    this.green2 = g2;
+	    this.blue1 = b1;
+	    this.blue2 = b2;
+	    this.fill = "45-rgb(" +r1 + "," + g1 + "," + b1 +  ")-rgb(" + +r2 + "," + g2 + "," + b2 +")"
+	}
+}
+

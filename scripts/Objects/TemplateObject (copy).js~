@@ -1,0 +1,35 @@
+//the start of every plant
+//dies, eventually.
+//sprouts a single stick, upwards from it
+//and a few roots, below it
+function TemplateObject(x,y,maxx,maxy, fill, stroke, scale, rotation, parent) {
+   	//initial variables
+	this.x = x;
+	this.y = y;
+	this.endx = x;
+	this.distance_from_origin = 0;
+	this.endy = y;
+	this.seed = true;
+	this.is_stasis = false;
+	this.max_x = maxx;
+	this.max_y = maxy;
+	this.parent = parent;
+	this.scale = scale; 
+	this.rotation = rotation;
+	this.path = "M" + this.x + " " +  this.y + " C 380.19502,618.85526 384.48877,617.69228 386.16667,618.36219 C 390.71368,620.1776 390.48837,626.34361 387.99999,629.69552 C 383.54886,635.6913 374.63298,635.02716 369.49999,630.36217 C 361.96713,623.51612 363.11518,611.5317 370.00001,604.69551 C 379.17641,595.58394 394.32222,597.2383 402.83335,606.3622 C 413.54373,617.84369 411.37305,636.18976 399.99998,646.3622 C 386.22566,658.68238 364.65935,655.99029 352.83332,642.36216 C 338.89675,626.30188 342.11315,601.50365 358.00003,588.02883 C 376.34206,572.47161 404.37962,576.21411 419.50002,594.36221 C 436.68078,614.98324 432.41101,646.26515 411.99996,663.02887 C 389.10186,681.83524 354.57205,677.03739 336.16664,654.36214 C 315.73315,629.18833 321.05967,591.40801 346.00004,571.36215z";
+	this.fill = fill;
+	this.stroke = stroke;
+	this.sprite = null;
+
+	
+	//
+	this.tick = function(){
+
+	};
+	
+	this.setSprite = function(sprite){
+	    this.sprite = sprite;
+	    this.sprite.attr({fill: this.fill, stroke: this.stroke});
+	}
+}
+

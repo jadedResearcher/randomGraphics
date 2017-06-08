@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<title>Butterfly Art</title>
+		<script type = "text/javascript" src="scripts/Objects/TemplateObject.js"></script>
+		<script type = "text/javascript" src="scripts/Shapes/Butterfly.js"></script>
+		<script type = "text/javascript" src="scripts/jquery-1.4.2.min.js"></script>
+		<script type = "text/javascript" src="scripts/jquery.timers-1.2.js"></script>
+		<script type = "text/javascript" src="scripts/raphael-min.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/DirectionalGradualPosition.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/DirectionalGradualColor.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/DirectionalRandomScale.js"></script>
+		<script type = "text/javascript" src="scripts/MutationEngines/RandomAngle.js"></script>
+		<script type = "text/javascript" src = "scripts/RunnerScripts/butterfly_runner.js"></script>
+	</head>
+
+	<body>
+		
+		<div id = "sim">
+
+		</div>
+	</body>
+</html>

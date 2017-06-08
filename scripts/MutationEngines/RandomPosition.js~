@@ -1,0 +1,14 @@
+//closest to inheritance I get, every Position mutator will have two methods:
+//next Postition X and next Position Y
+function RandomPosition() {
+        //ignores parent position, just outputs a random
+	this.nextPositionX = function(x,maxx){
+	    return Math.random() * maxxx;
+	}
+	
+	//ignores parent postition, just outputs a random.
+	this.nextPositionY = function(y,maxy){
+	    return Math.random() * maxy;
+	}
+}
+

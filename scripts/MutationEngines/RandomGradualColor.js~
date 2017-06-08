@@ -1,0 +1,34 @@
+//closest to inheritance I get, every Color mutator has a nextColor method
+function RandomGradualColor() {
+           //has to remember selected color to give to object, not just fill	   this.r1 = 0;
+	   this.g1 = 0;
+	   this.b1 = 0;
+	   this.r2 = 0;
+	   this.g2 = 0;
+	   this.b2 = 0;
+        //ignores parent position, just outputs a random color
+	this.nextFill = function(red1,green1,blue1, red2, green2, blue2){
+	   this.r1 = Math.min(255, Math.floor(Math.random() * 15  * randomSign() + red1));
+	   this.g1 = Math.min(255, Math.floor(Math.random() * 15  * randomSign() + green1));
+	   this.b1 = Math.min(255, Math.floor(Math.random() * 15  * randomSign() + blue1));
+	   this.r2 = Math.min(255, Math.floor(Math.random() * 15  * randomSign() + red2));
+	   this.g2 = Math.min(255, Math.floor(Math.random() * 15  * randomSign() + green2));
+	   this.b2 = Math.min(255, Math.floor(Math.random() * 15  * randomSign() + blue2));
+	   //no negatives
+	   this.r1 = Math.max(0, this.r1);
+	   this.g1 = Math.max(0, this.g1);
+	   this.b1 = Math.max(0, this.b1);
+	   this.r2 = Math.max(0, this.r2);
+	   this.g2 = Math.max(0, this.g2);
+	   this.b2 = Math.max(0, this.b2);
+	   ret = "45-rgb(" +this.r1 + "," + this.g1 + "," + this.b1 +  ")-rgb(" + +this.r2 + "," + this.g2 + "," + this.b2 +")";
+	   return ret;
+	}
+	
+	function randomSign(){
+	  var arr = [1,-1, 1, -1, 1, 1 ,1];
+	  var ret = arr[Math.floor(Math.random() * 6)];
+	  return ret;
+	}		
+}
+
